@@ -1,17 +1,18 @@
-*, *::after, *::before{
+*, *::after, *::before, p{
     margin: 0px;
-    box-sizing: inherit;
 }
 
 :root{
     /* PRIMARY */
     --marine-blue: hsl(213, 96%, 18%);
+    --light-blue: hsl(206, 94%, 87%);
 
     /* NEUTRAL */
     --cool-gray: hsl(231, 11%, 63%);
     --light-gray: hsl(229, 24%, 87%);
     --magnolia: hsl(217, 100%, 97%);
     --alabaster: hsl(231, 100%, 99%);
+    --white: hsl(0, 0%, 100%);
 }
 
 html{
@@ -23,3 +24,84 @@ body{
     width: 100%;
     background-color: var(--magnolia);
 }   
+
+.radius-component{
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+.radius-component-transparent{
+    border: 1px solid var( --white );
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+
+/* POSICIONAMIENTO */
+.pos-center{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* COLORES FONDO */
+.bg-marine-blue{
+    background-color: hsl(213, 96%, 18%);
+}
+
+.bg-cool-gray{
+    background-color: hsl(231, 11%, 63%);
+}
+
+.bg-light-gray{
+    background-color: hsl(229, 24%, 87%);
+}
+
+.bg-magnolia{
+    background-color: var( --magnolia );
+}
+
+.bg-light-blue{
+    background-color: var( --light-blue );
+}
+
+/* COLORES TEXTO */
+
+.col-marine-blue{
+    color: hsl(213, 96%, 18%);
+}
+
+.col-pastel-blue{
+    color: hsl(228, 100%, 84%);
+}
+
+.col-light-blue{
+    color: hsl(206, 94%, 87%);
+}
+
+.col-cool-gray{
+    color: hsl(231, 11%, 63%);
+}
+
+.col-light-gray{
+    color: hsl(229, 24%, 87%);
+}
+
+.col-white{
+    color: var( --white );
+}
+
+/* LETTER SPACING */
+.letter-s-1{
+    letter-spacing: 2px;
+}
+
+.letter-s-2{
+    letter-spacing: 3px;
+}
+
+.letter-s-3{
+    letter-spacing: 5px;
+}
