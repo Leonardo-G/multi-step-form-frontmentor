@@ -46,6 +46,12 @@ body{
     transform: translate(-50%, -50%);
 }
 
+.pos-bottom-right{
+    position: absolute;
+    bottom: 0;
+    right: 10%;
+}
+
 /* COLORES FONDO */
 .bg-marine-blue{
     background-color: hsl(213, 96%, 18%);
@@ -70,7 +76,7 @@ body{
 /* COLORES TEXTO */
 
 .col-marine-blue{
-    color: hsl(213, 96%, 18%);
+    color: var(--marine-blue);
 }
 
 .col-pastel-blue{
@@ -82,11 +88,19 @@ body{
 }
 
 .col-cool-gray{
-    color: hsl(231, 11%, 63%);
+    color: var( --cool-gray );
 }
 
 .col-light-gray{
     color: hsl(229, 24%, 87%);
+}
+
+.col-magnolia{
+    color: var( --magnolia );
+}
+
+.col-alabaster{
+    color: var( --alabaster );
 }
 
 .col-white{

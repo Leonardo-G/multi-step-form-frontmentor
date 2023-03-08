@@ -8,7 +8,8 @@ export const Sidebar = () => {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img 
                 src="/assets/bg-sidebar-desktop.svg" 
-                alt="Image Background SideBar" 
+                alt="Image Background SideBar"
+                className='w100'
             />
             <div className={ style['sidebar-menu'] }>
                 <div className='p-4'>
