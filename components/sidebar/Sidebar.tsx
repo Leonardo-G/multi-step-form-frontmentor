@@ -1,8 +1,12 @@
-import React from 'react'
+import { FormContext } from '@/context/FormContext';
+import React, { useContext } from 'react'
 
 import style from "./Sidebar.module.css";
 
 export const Sidebar = () => {
+
+    const { numberForm } = useContext( FormContext )
+
     return (
         <div className="position-relative">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -14,7 +18,7 @@ export const Sidebar = () => {
             <div className={ style['sidebar-menu'] }>
                 <div className='p-4'>
                     <div className='d-flex align-items-center gap-3'>
-                        <div className='bg-light-blue radius-component position-relative'>
+                        <div className={`bg-light-blue ${ numberForm === 1 ? "radius-component" : "radius-component-transparent"} position-relative`}>
                             <p className='pos-center fw-medium'>1</p>
                         </div>
                         <div>
@@ -23,8 +27,8 @@ export const Sidebar = () => {
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-3 mt-4'>
-                        <div className='radius-component-transparent position-relative'>
-                            <p className='pos-center fw-medium col-white'>2</p>
+                        <div className={`bg-light-blue ${ numberForm === 2 ? "radius-component" : "radius-component-transparent"} position-relative`}>
+                            <p className='pos-center fw-medium'>2</p>
                         </div>
                         <div>
                             <p className='text-uppercase col-pastel-blue fw-medium'>Step 2</p>
@@ -32,8 +36,8 @@ export const Sidebar = () => {
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-3 mt-4'>
-                        <div className='radius-component-transparent position-relative'>
-                            <p className='pos-center fw-medium col-white'>3</p>
+                        <div className={`bg-light-blue ${ numberForm === 3 ? "radius-component" : "radius-component-transparent"} position-relative`}>
+                            <p className='pos-center fw-medium'>3</p>
                         </div>
                         <div>
                             <p className='text-uppercase col-pastel-blue fw-medium'>Step 3</p>
@@ -41,8 +45,8 @@ export const Sidebar = () => {
                         </div>
                     </div>
                     <div className='d-flex align-items-center gap-3 mt-4'>
-                        <div className='radius-component-transparent position-relative'>
-                            <p className='pos-center fw-medium col-white'>4</p>
+                        <div className={`bg-light-blue ${ numberForm === 4 ? "radius-component" : "radius-component-transparent"} position-relative`}>
+                            <p className='pos-center fw-medium'>4</p>
                         </div>
                         <div>
                             <p className='text-uppercase col-pastel-blue fw-medium'>Step 4</p>

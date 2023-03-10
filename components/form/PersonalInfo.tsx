@@ -1,11 +1,10 @@
-import React, { FC, FocusEvent, useState } from 'react'
+import { FormContext } from '@/context/FormContext';
+import React, { FC, FocusEvent, useContext, useState } from 'react'
+import { FormContainer } from './FormContainer';
 
-interface Props {
-    changeNumber: (number: number) => void;
-}
+export const PersonalInfo: FC = () => {
 
-export const PersonalInfo: FC<Props> = ({ changeNumber }: Props) => {
-
+    const { changeNumberForm } = useContext(FormContext);
     const [inputsValues, setInputsValues] = useState({
         name: "",
         email: "",
@@ -103,7 +102,7 @@ export const PersonalInfo: FC<Props> = ({ changeNumber }: Props) => {
         if ( isLength.email || isLength.name || isLength.phone ) return;
 
         //En caso de pasar las validaciones, cambiamos el formulario
-        changeNumber( 2 )
+        changeNumberForm( 2 )
     }
 
     return (
