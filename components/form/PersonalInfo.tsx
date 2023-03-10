@@ -102,11 +102,11 @@ export const PersonalInfo: FC = () => {
         if ( isLength.email || isLength.name || isLength.phone ) return;
 
         //En caso de pasar las validaciones, cambiamos el formulario
-        changeNumberForm( 2 )
+        changeNumberForm( +1 )
     }
 
     return (
-        <div className='px-5 position-relative'>
+        <>
             <h2 className='fw-bold col-marine-blue'>Personal Info</h2>
             <p className='col-cool-gray'>Please provide your name, email address and phone number.</p>
             
@@ -170,6 +170,6 @@ export const PersonalInfo: FC = () => {
                     onClick={ handleNextForm }
                 >Next Step</button>
             </div>
-        </div>
+        </>
     )
 }

@@ -11,7 +11,11 @@ export const FormProvider: FC<Props> = ({ children }) => {
     const [numberForm, setNumberForm] = useState(1);
 
     const changeNumberForm = (number: number) => {
-        setNumberForm( number );
+
+        let numberWindowForm = numberForm;
+        numberWindowForm += number;
+
+        setNumberForm( numberWindowForm );
     }
 
     return (
