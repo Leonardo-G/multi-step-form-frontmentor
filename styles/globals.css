@@ -5,6 +5,7 @@
 :root{
     /* PRIMARY */
     --marine-blue: hsl(213, 96%, 18%);
+    --purplish-blue: hsl(243, 100%, 62%);
     --light-blue: hsl(206, 94%, 87%);
 
     /* NEUTRAL */
@@ -118,4 +119,10 @@ body{
 
 .letter-s-3{
     letter-spacing: 5px;
+}
+
+/* BORDER */
+.border-purplish{
+    border-color: var( --purplish-blue ) !important;
+    box-shadow: none !important;
 }
