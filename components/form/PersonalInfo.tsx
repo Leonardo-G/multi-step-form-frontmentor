@@ -1,12 +1,28 @@
-import React, { FocusEvent, FormEvent, useState } from 'react'
+import React, { FC, FocusEvent, useState } from 'react'
 
-export const PersonalInfo = () => {
+interface Props {
+    changeNumber: (number: number) => void;
+}
+
+export const PersonalInfo: FC<Props> = ({ changeNumber }: Props) => {
 
     const [inputsValues, setInputsValues] = useState({
         name: "",
         email: "",
         phone: ""
     });
+
+    const [errorInputs, setErrorInputs] = useState({
+        name: false,
+        email: false,
+        phone: false
+    })
+
+    const [inputsEmpty, setInputsEmpty] = useState({
+        name: false,
+        email: false,
+        phone: false
+    })
 
     const handleChangeColor = (event: FocusEvent<HTMLInputElement>) => {
         
@@ -19,10 +35,75 @@ export const PersonalInfo = () => {
     }
 
     const handleInputValue = (event: FocusEvent<HTMLInputElement>) => {
+
         setInputsValues({
             ...inputsValues,
             [event.target.name]: event.target.value
         })
+        
+        if ( event.target.name === "name" && event.target.value.length <= 3 ) {
+            setErrorInputs({
+                ...errorInputs,
+                name: true
+            });
+            event.target.classList.remove("border-purplish");
+            event.target.classList.add("border-error");
+            return;
+        } 
+        
+        if ( event.target.name === "email" && event.target.value.length <= 3 ) {
+            setErrorInputs({
+                ...errorInputs,
+                email: true
+            });
+            event.target.classList.remove("border-purplish");
+            event.target.classList.add("border-error");
+            return;
+        } 
+        
+        if ( event.target.name === "phone" && event.target.value.length <= 6 ) {
+            setErrorInputs({
+                ...errorInputs,
+                phone: true
+            });
+            event.target.classList.remove("border-purplish");
+            event.target.classList.add("border-error");
+            return;
+        } 
+
+        setErrorInputs({
+            ...errorInputs,
+            [event.target.name]: false
+        });
+        event.target.classList.add("border-purplish");
+        event.target.classList.remove("border-error");
+    }
+
+    const handleNextForm = () => {
+        
+        const isLength = {
+            name: false,
+            email: false,
+            phone: false
+        }
+
+        /* Verificando si las entradas están vacías y si lo están, está configurando el estado de las
+        inputsEmpty a verdadero. */
+        if ( inputsValues.name === "" ) isLength.name = true;
+
+        if ( inputsValues.email === "" ) isLength.name = true;
+
+        if ( inputsValues.phone === "" ) isLength.phone = true;
+
+        //Le mandamos el objeto al estado
+        setInputsEmpty( isLength );
+
+        /* Comprobando si las entradas cumplen con las validaciones previas en la funcion "handleInputValue", si no lo están, retornara la funcion. */
+        if ( errorInputs.email || errorInputs.name || errorInputs.phone ) return;
+        if ( isLength.email || isLength.name || isLength.phone ) return;
+
+        //En caso de pasar las validaciones, cambiamos el formulario
+        changeNumber( 2 )
     }
 
     return (
@@ -31,7 +112,13 @@ export const PersonalInfo = () => {
             <p className='col-cool-gray'>Please provide your name, email address and phone number.</p>
             
             <div className="mt-5">
-                <label className="form-label col-marine-blue fw-medium">Name</label>
+                <div className='d-flex justify-content-between text-danger fw-medium'>
+                    <label className="form-label col-marine-blue fw-medium">Name</label>
+                    {
+                        inputsEmpty.name &&
+                        <p>The field is required</p>
+                    }
+                </div>
                 <input 
                     onFocus={ handleChangeColor }
                     onBlur={ handleBlurInput }
@@ -43,7 +130,13 @@ export const PersonalInfo = () => {
                 />
             </div>
             <div className="mt-4">
-                <label className="form-label col-marine-blue fw-medium">Email Address</label>
+                <div className='d-flex justify-content-between text-danger fw-medium'>
+                    <label className="form-label col-marine-blue fw-medium">Email Address</label>
+                    {
+                        inputsEmpty.email &&
+                        <p>The field is required</p>
+                    }
+                </div>
                 <input 
                     onFocus={ handleChangeColor }
                     onBlur={ handleBlurInput }
@@ -57,7 +150,10 @@ export const PersonalInfo = () => {
             <div className="mt-4">
                 <div className='d-flex justify-content-between text-danger fw-medium'>
                     <label className="form-label col-marine-blue fw-medium">Phone Number</label>
-                    <p>The field is required</p>
+                    {
+                        inputsEmpty.phone &&
+                        <p>The field is required</p>
+                    }
                 </div>
                 <input 
                     onFocus={ handleChangeColor }
@@ -70,7 +166,10 @@ export const PersonalInfo = () => {
                 />
             </div>
             <div className='pos-bottom-right'>
-                <button className='btn btn-primary px-3 py-2 fw-medium bg-marine-blue border-0'>Next Step</button>
+                <button 
+                    className='btn btn-primary px-3 py-2 fw-medium bg-marine-blue border-0'
+                    onClick={ handleNextForm }
+                >Next Step</button>
             </div>
         </div>
     )

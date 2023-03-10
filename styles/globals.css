@@ -14,6 +14,8 @@
     --magnolia: hsl(217, 100%, 97%);
     --alabaster: hsl(231, 100%, 99%);
     --white: hsl(0, 0%, 100%);
+
+    --error: rgba(255, 0, 0, 0.664);
 }
 
 html{
@@ -124,5 +126,10 @@ body{
 /* BORDER */
 .border-purplish{
     border-color: var( --purplish-blue ) !important;
+    box-shadow: none !important;
+}
+
+.border-error{
+    border-color: var( --error ) !important;
     box-shadow: none !important;
 }
