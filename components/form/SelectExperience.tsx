@@ -1,46 +1,41 @@
 import React, { ChangeEvent, useContext, useState } from 'react'
 
 import { FormContext } from '@/context/FormContext'
+import { AddOnsTypes } from '@/interfaces/form';
 
 export const SelectExperience = () => {
 
-    const { changeNumberForm } = useContext( FormContext );
-    const [options, setOptions] = useState({
-        onlineService: false,
-        largerStorage: false,
-        customProfile: false
-    })
+    const { changeNumberForm, handleFillForm } = useContext( FormContext );
+    const [options, setOptions] = useState<AddOnsTypes[]>([]);
 
+
+    //Funcion para el manejo del estado OPTIONS.
     const handleChangeOption = (e: ChangeEvent<HTMLInputElement>) => {
-        if ( e.target.value === "online-service" ) {
-            setOptions({
-                ...options,
-                onlineService: !options.onlineService
-            })
-        }
+        
+        //Aclarando al value que vendran el tipado de "AddOnsTypes"
+        const valueOption = e.target.value as AddOnsTypes;
 
-        if ( e.target.value === "larger-storage" ) {
-            setOptions({
-                ...options,
-                largerStorage: !options.largerStorage
-            })
+        //En caso de que se incluya la opcion en el estado, se quita del arreglo
+        if ( options.includes( valueOption ) ) {
+            setOptions( options.filter( o => o !== valueOption ) );
             return;
         }
 
-        if ( e.target.value === "custom-profile" ) {
-            setOptions({
-                ...options,
-                customProfile: !options.customProfile
-            })
-            return;
-        }
+        //Se agrega en caso de que este en el arreglo.
+        setOptions([
+            ...options,
+            valueOption
+        ])
     }
 
-    const handleClickNextForm = ( number: number ) =>{
+    const handleClickNextForm = ( number: number ) => {
         //Comprobar que por lo menos se haya elegido una opcion
-        if ( options.customProfile || options.largerStorage || options.onlineService ) {
+        if ( options.length !== 0) {
             
-            //En caso de pasar la validación cambiamos la ventana del formulario
+            //En caso de pasar la validación cambiamos la ventana del formulario y agregamos la informacion
+            handleFillForm({
+                addOns: options
+            })
             changeNumberForm( number )
         }
     }
@@ -50,7 +45,7 @@ export const SelectExperience = () => {
             <h2 className='fw-bold col-marine-blue'>Pick add-ons</h2>
             <p className='col-cool-gray'>Add-ons help enhance your gaming experience</p>
 
-            <div className={`${ options.onlineService ? "border-purplish " : "border-marine" } rounded p-4 mt-5 d-flex align-items-center`}>
+            <div className={`${ options.some( o => o === "online-service") ? "border-purplish " : "border-marine" } rounded p-4 mt-5 d-flex align-items-center`}>
                 <input 
                     type="checkbox"
                     className='me-4'
@@ -66,7 +61,7 @@ export const SelectExperience = () => {
                 </div>
             </div>
 
-            <div className={`${ options.largerStorage ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
+            <div className={`${ options.some( o => o === "larger-storage") ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
                 <input 
                     type="checkbox"
                     className='me-4'
@@ -82,7 +77,7 @@ export const SelectExperience = () => {
                 </div>
             </div>
 
-            <div className={`${ options.customProfile ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
+            <div className={`${ options.some( o => o === "custom-profile") ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
                 <input 
                     type="checkbox"
                     className='me-4'

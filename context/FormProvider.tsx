@@ -14,6 +14,9 @@ export const FormProvider: FC<Props> = ({ children }) => {
         name: "",
         email: "",
         phone: "",
+        plan: [],
+        timePay: "monthly",
+        addOns: []
     })
 
     const handleFillForm = ( formUser: IFormOptional ) => {
