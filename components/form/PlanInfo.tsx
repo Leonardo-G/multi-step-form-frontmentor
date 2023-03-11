@@ -1,43 +1,50 @@
-import { FormContext } from '@/context/FormContext'
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
+import Image from 'next/image'
+import { FormContext } from '@/context/FormContext';
 
 export const PlanInfo = () => {
 
     const { changeNumberForm } = useContext( FormContext );
-    const [options, setOptions] = useState({
-        onlineService: false,
-        largerStorage: false,
-        customProfile: false
+    const [monthly, setMonthly] = useState(true);
+    const [plan, setPlan] = useState({
+        arcade: false,
+        advanced: false,
+        pro: false
     })
 
-    const handleChangeOption = (e: ChangeEvent<HTMLInputElement>) => {
-        if ( e.target.value === "online-service" ) {
-            setOptions({
-                ...options,
-                onlineService: !options.onlineService
-            })
-        }
+    const handleSelectPlan = ( planOption: "arcade" | "advanced" | "pro" ) => {
 
-        if ( e.target.value === "larger-storage" ) {
-            setOptions({
-                ...options,
-                largerStorage: !options.largerStorage
+        if ( planOption === "arcade" ) {
+            setPlan({
+                ...plan,
+                arcade: !plan.arcade
             })
+
             return;
         }
 
-        if ( e.target.value === "custom-profile" ) {
-            setOptions({
-                ...options,
-                customProfile: !options.customProfile
+        if ( planOption === "advanced" ){
+            setPlan({
+                ...plan,
+                advanced: !plan.advanced
             })
+
+            return;
+        }
+
+        if ( planOption === "pro" ){
+            setPlan({
+                ...plan,
+                pro: !plan.pro
+            })
+
             return;
         }
     }
 
     const handleClickNextForm = ( number: number ) =>{
         //Comprobar que por lo menos se haya elegido una opcion
-        if ( options.customProfile || options.largerStorage || options.onlineService ) {
+        if ( Object.values( plan ).some( s => s ) ) {
             
             //En caso de pasar la validación cambiamos la ventana del formulario
             changeNumberForm( number )
@@ -46,55 +53,70 @@ export const PlanInfo = () => {
 
     return (
         <>
-            <h2 className='fw-bold col-marine-blue'>Pick add-ons</h2>
-            <p className='col-cool-gray'>Add-ons help enhance your gaming experience</p>
+            <h2 className='fw-bold col-marine-blue'>Select your plan</h2>
+            <p className='col-cool-gray'>You have the option of monthly or yearly biling</p>
 
-            <div className={`${ options.onlineService ? "border-purplish " : "border-marine" } rounded p-4 mt-5 d-flex align-items-center`}>
-                <input 
-                    type="checkbox"
-                    className='me-4'
-                    value="online-service"
-                    onChange={ handleChangeOption }
-                />
-                <div className='flex-grow-1'>
-                    <p className="form-label col-marine-blue fw-bold mb-0">Online service</p>
-                    <p className='col-cool-gray'>Access to multiplayer games</p>
+            <div className='d-flex mt-5 column-gap-3'>
+                <div 
+                    className={`${ plan.arcade ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
+                    onClick={ () => handleSelectPlan("arcade") }
+                >
+                    <Image 
+                        src="/assets/icon-arcade.svg"
+                        width={ 40 }
+                        height={ 40 }
+                        alt="Icono arcade"
+                    />
+                    <div className='mt-5'>
+                        <p className='fw-bold col-marine-blue'>Arcade</p>
+                        <p className='col-cool-gray'>$9/mo</p>
+                    </div>
                 </div>
-                <div>
-                    <p className='col-purplish fw-medium'>+$1/mo</p>
+
+                <div 
+                    className={`${ plan.advanced ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
+                    onClick={ () => handleSelectPlan("advanced") }
+                >
+                    <Image 
+                        src="/assets/icon-advanced.svg"
+                        width={ 40 }
+                        height={ 40 }
+                        alt="Icono advanced"
+                    />
+                    <div className='mt-5'>
+                        <p className='fw-bold col-marine-blue'>Arcade</p>
+                        <p className='col-cool-gray'>$12/mo</p>
+                    </div>
+                </div>
+
+                <div 
+                    className={`${ plan.pro ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
+                    onClick={ () => handleSelectPlan("pro") }
+                >
+                    <Image
+                        src="/assets/icon-pro.svg"
+                        width={ 40 }
+                        height={ 40 }
+                        alt="Icono Pro"
+                    />
+                    <div className='mt-5'>
+                        <p className='fw-bold col-marine-blue'>Arcade</p>
+                        <p className='col-cool-gray'>$9/mo</p>
+                    </div>
                 </div>
             </div>
 
-            <div className={`${ options.largerStorage ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
-                <input 
-                    type="checkbox"
-                    className='me-4'
-                    value="larger-storage"
-                    onChange={ handleChangeOption }
-                />
-                <div className='flex-grow-1'>
-                    <p className="form-label col-marine-blue fw-bold mb-0">Larger storage</p>
-                    <p className='col-cool-gray'>Estra 1TB of cloud save</p>
+            <div className='d-flex mt-5 justify-content-center column-gap-3'>
+                <span>Monthly</span>
+                <div 
+                    className='switch pointer'
+                    onClick={ () => setMonthly( !monthly ) }
+                >
+                    <div 
+                        className={`switch-button ${ !monthly ? "switch-button-on" : "" }`}
+                    ></div>
                 </div>
-                <div>
-                    <p className='col-purplish fw-medium'>+$2/mo</p>
-                </div>
-            </div>
-
-            <div className={`${ options.customProfile ? "border-purplish " : "border-marine" } rounded p-4 mt-4 d-flex align-items-center`}>
-                <input 
-                    type="checkbox"
-                    className='me-4'
-                    value="custom-profile"
-                    onChange={ handleChangeOption }
-                />
-                <div className='flex-grow-1'>
-                    <p className="form-label col-marine-blue fw-bold mb-0">Customizable Profile</p>
-                    <p className='col-cool-gray'>Custom theme on your profile</p>
-                </div>
-                <div>
-                    <p className='col-purplish fw-medium'>+$2/mo</p>
-                </div>
+                <span>Yearly</span>
             </div>
 
             <div className='pos-bottom-right'>

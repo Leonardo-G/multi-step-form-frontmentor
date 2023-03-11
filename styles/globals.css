@@ -149,3 +149,34 @@ body{
 .border-marine{
     border: 1px solid var( --cool-gray );
 }
+
+/* COMPONENTE SWITCH INPUT */
+.switch{
+    background-color: var( --marine-blue );
+    position: relative;
+    width: 60px;
+    height: 30px;
+    border-radius: 20px;
+}
+
+.switch-button{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var( --white );
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10%;
+    transition: .3s all ease;
+}
+
+.switch-button-on{
+    transform: translate( 140%, -50% );
+    transition: .3s all ease;
+}
+
+/* MOUSE */
+.pointer{
+    cursor: pointer;
+}

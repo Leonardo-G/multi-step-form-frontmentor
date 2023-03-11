@@ -1,7 +1,9 @@
+import React, { useContext } from 'react'
 import { FormContext } from '@/context/FormContext'
-import React, { useContext, useState } from 'react'
+
 import { PersonalInfo } from './PersonalInfo'
 import { PlanInfo } from './PlanInfo';
+import { SelectExperience } from './SelectExperience';
 
 export const FormContainer = () => {
     
@@ -16,6 +18,10 @@ export const FormContainer = () => {
             {
                 numberForm === 2 &&
                 <PlanInfo />
+            }
+            {
+                numberForm === 3 &&
+                <SelectExperience />
             }
         </div>
     )
