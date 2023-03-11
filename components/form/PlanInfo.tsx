@@ -5,9 +5,9 @@ import { PlanTypes } from '@/interfaces/form';
 
 export const PlanInfo = () => {
 
-    const { changeNumberForm, handleFillForm } = useContext( FormContext );
-    const [monthly, setMonthly] = useState(true);
-    const [plan, setPlan] = useState<PlanTypes[]>([])
+    const { changeNumberForm, handleFillForm, form } = useContext( FormContext );
+    const [monthly, setMonthly] = useState( form.timePay === "monthly" ? true : false);
+    const [plan, setPlan] = useState<PlanTypes[]>( form.plan )
 
     const handleSelectPlan = ( planOption: "arcade" | "advanced" | "pro" ) => {
 

@@ -1,10 +1,10 @@
 import { FormContext } from '@/context/FormContext';
-import React, { FC, FocusEvent, useContext, useState } from 'react'
-import { FormContainer } from './FormContainer';
+import React, { FC, FocusEvent, useContext, useEffect, useState } from 'react'
 
 export const PersonalInfo: FC = () => {
 
-    const { changeNumberForm, handleFillForm } = useContext(FormContext);
+    const { changeNumberForm, handleFillForm, form, getInfo } = useContext(FormContext);
+    const [isLength, setisLength] = useState(false);
     const [inputsValues, setInputsValues] = useState({
         name: "",
         email: "",
@@ -17,11 +17,17 @@ export const PersonalInfo: FC = () => {
         phone: false
     })
 
-    const [inputsEmpty, setInputsEmpty] = useState({
-        name: false,
-        email: false,
-        phone: false
-    })
+    useEffect(() => {
+        
+        //Obtener la info, una vez que se obtenga lo obtenido en local storage{
+        setInputsValues({
+            name: form.name,
+            email: form.email,
+            phone: form.phone
+        })
+
+        //eslint-disable-next-line
+    }, [getInfo])
 
     const handleChangeColor = (event: FocusEvent<HTMLInputElement>) => {
         
@@ -80,26 +86,14 @@ export const PersonalInfo: FC = () => {
 
     const handleNextForm = () => {
         
-        const isLength = {
-            name: false,
-            email: false,
-            phone: false
+        if( inputsValues.email === "" || inputsValues.name === "" || inputsValues.phone === "" ) {
+            setisLength( true );
+            return;
         }
 
-        /* Verificando si las entradas están vacías y si lo están, está configurando el estado de las
-        inputsEmpty a verdadero. */
-        if ( inputsValues.name === "" ) isLength.name = true;
-
-        if ( inputsValues.email === "" ) isLength.name = true;
-
-        if ( inputsValues.phone === "" ) isLength.phone = true;
-
-        //Le mandamos el objeto al estado
-        setInputsEmpty( isLength );
-
+        setisLength( false );
         /* Comprobando si las entradas cumplen con las validaciones previas en la funcion "handleInputValue", si no lo están, retornara la funcion. */
         if ( errorInputs.email || errorInputs.name || errorInputs.phone ) return;
-        if ( isLength.email || isLength.name || isLength.phone ) return;
 
         //Mandarle los datos al CONTEXT
         handleFillForm({
@@ -119,7 +113,7 @@ export const PersonalInfo: FC = () => {
                 <div className='d-flex justify-content-between text-danger fw-medium'>
                     <label className="form-label col-marine-blue fw-medium">Name</label>
                     {
-                        inputsEmpty.name &&
+                        isLength && inputsValues.name === "" &&
                         <p>The field is required</p>
                     }
                 </div>
@@ -127,7 +121,7 @@ export const PersonalInfo: FC = () => {
                     onFocus={ handleChangeColor }
                     onBlur={ handleBlurInput }
                     onInput={ handleInputValue }
-                    value={ inputsValues.name }
+                    defaultValue={ form.name }
                     type="text" 
                     name='name'
                     className="form-control fw-medium col-marine-blue py-2"
@@ -137,7 +131,7 @@ export const PersonalInfo: FC = () => {
                 <div className='d-flex justify-content-between text-danger fw-medium'>
                     <label className="form-label col-marine-blue fw-medium">Email Address</label>
                     {
-                        inputsEmpty.email &&
+                        isLength && inputsValues.email === "" &&
                         <p>The field is required</p>
                     }
                 </div>
@@ -145,7 +139,7 @@ export const PersonalInfo: FC = () => {
                     onFocus={ handleChangeColor }
                     onBlur={ handleBlurInput }
                     onInput={ handleInputValue }
-                    value={ inputsValues.email }
+                    defaultValue={ form.email }
                     type="email" 
                     name='email'
                     className="form-control fw-medium col-marine-blue py-2"
@@ -155,7 +149,7 @@ export const PersonalInfo: FC = () => {
                 <div className='d-flex justify-content-between text-danger fw-medium'>
                     <label className="form-label col-marine-blue fw-medium">Phone Number</label>
                     {
-                        inputsEmpty.phone &&
+                        isLength && inputsValues.phone === "" &&
                         <p>The field is required</p>
                     }
                 </div>

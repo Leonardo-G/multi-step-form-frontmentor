@@ -1,4 +1,4 @@
-import React, { FC, ReactNode, useState } from 'react'
+import React, { FC, ReactNode, useEffect, useState } from 'react'
 
 import { FormContext } from './FormContext';
 import { IForm, IFormOptional } from '../interfaces/form';
@@ -18,12 +18,30 @@ export const FormProvider: FC<Props> = ({ children }) => {
         timePay: "monthly",
         addOns: []
     })
+    const [getInfo, setGetInfo] = useState(false)
+
+    //Hook para rellenar el formulario en caso de que 
+    //exista anteriormente
+    useEffect(() => {
+        const getFormUser = localStorage.getItem( "formUser" )
+        
+        if ( getFormUser ){
+            setForm( JSON.parse( getFormUser ) )
+            setGetInfo( true )
+        }
+
+    }, [])
 
     const handleFillForm = ( formUser: IFormOptional ) => {
-        setForm({
+
+        const objUser = {
             ...form,
             ...formUser
-        })
+        }
+
+        setForm( objUser );
+
+        localStorage.setItem( "formUser", JSON.stringify( objUser ) );
     }
 
     const changeNumberForm = (number: number) => {
@@ -36,6 +54,7 @@ export const FormProvider: FC<Props> = ({ children }) => {
 
     return (
         <FormContext.Provider value={{
+            getInfo,
             numberForm,
             form,
 

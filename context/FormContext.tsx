@@ -4,6 +4,7 @@ import { createContext } from 'react';
 export interface ContextProps {
     numberForm: number;
     form: IForm;
+    getInfo: boolean;
     handleFillForm: ( formUser: IFormOptional ) => void;
     changeNumberForm: (number: number) => void;
 };

@@ -1,13 +1,18 @@
-import React, { ChangeEvent, useContext, useState } from 'react'
+import React, { ChangeEvent, useContext, useEffect, useState } from 'react'
 
 import { FormContext } from '@/context/FormContext'
 import { AddOnsTypes } from '@/interfaces/form';
 
 export const SelectExperience = () => {
 
-    const { changeNumberForm, handleFillForm } = useContext( FormContext );
+    const { changeNumberForm, handleFillForm, form, getInfo } = useContext( FormContext );
     const [options, setOptions] = useState<AddOnsTypes[]>([]);
 
+    useEffect(() => {
+        setOptions( form.addOns );
+
+        //eslint-disable-next-line
+    }, [ getInfo ])
 
     //Funcion para el manejo del estado OPTIONS.
     const handleChangeOption = (e: ChangeEvent<HTMLInputElement>) => {
@@ -51,6 +56,7 @@ export const SelectExperience = () => {
                     className='me-4'
                     value="online-service"
                     onChange={ handleChangeOption }
+                    checked={ options.includes("online-service") }
                 />
                 <div className='flex-grow-1'>
                     <p className="form-label col-marine-blue fw-bold mb-0">Online service</p>
@@ -66,6 +72,7 @@ export const SelectExperience = () => {
                     type="checkbox"
                     className='me-4'
                     value="larger-storage"
+                    checked={ options.includes("larger-storage") }
                     onChange={ handleChangeOption }
                 />
                 <div className='flex-grow-1'>
@@ -82,6 +89,7 @@ export const SelectExperience = () => {
                     type="checkbox"
                     className='me-4'
                     value="custom-profile"
+                    checked={ options.includes("custom-profile") }
                     onChange={ handleChangeOption }
                 />
                 <div className='flex-grow-1'>
