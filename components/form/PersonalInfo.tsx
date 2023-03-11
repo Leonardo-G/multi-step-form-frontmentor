@@ -4,7 +4,7 @@ import { FormContainer } from './FormContainer';
 
 export const PersonalInfo: FC = () => {
 
-    const { changeNumberForm } = useContext(FormContext);
+    const { changeNumberForm, handleFillForm } = useContext(FormContext);
     const [inputsValues, setInputsValues] = useState({
         name: "",
         email: "",
@@ -100,6 +100,11 @@ export const PersonalInfo: FC = () => {
         /* Comprobando si las entradas cumplen con las validaciones previas en la funcion "handleInputValue", si no lo están, retornara la funcion. */
         if ( errorInputs.email || errorInputs.name || errorInputs.phone ) return;
         if ( isLength.email || isLength.name || isLength.phone ) return;
+
+        //Mandarle los datos al CONTEXT
+        handleFillForm({
+            ...inputsValues
+        })
 
         //En caso de pasar las validaciones, cambiamos el formulario
         changeNumberForm( +1 )
