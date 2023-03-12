@@ -13,5 +13,11 @@ export const returnArray = ( array1: PlanTypes[], array2: IPlanOptions[] ): IPla
             }
         }
     }
+
+    newArray = newArray.map( n => ({
+        name: n.name,
+        price: n.price
+    }) )
+
     return newArray
 } 

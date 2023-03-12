@@ -3,30 +3,36 @@ import { IPlanOptions } from "@/interfaces/form"
 export const planMonthDB: IPlanOptions[] = [
     {
         name: "arcade",
-        price: 9
+        price: 9,
+        src: "/assets/icon-arcade.svg"
     },
     {
         name: "advanced",
-        price: 12
+        price: 12,
+        src: "/assets/icon-advanced.svg"
     },
     {
         name: "pro",
-        price: 9
+        price: 9,
+        src: "/assets/icon-pro.svg"
     }
 ]
 
 export const planYearlyDB: IPlanOptions[] = [
     {
         name: "arcade",
-        price: 90
+        price: 90,
+        src: "/assets/icon-arcade.svg"
     },
     {
         name: "advanced",
-        price: 120
+        price: 120,
+        src: "/assets/icon-advanced.svg"
     },
     {
         name: "pro",
-        price: 150
+        price: 150,
+        src: "/assets/icon-pro.svg"
     }
 ]
 

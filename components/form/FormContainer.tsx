@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { FormContext } from '@/context/FormContext'
 
 import { PersonalInfo } from './PersonalInfo'
-import { PlanInfo } from './PlanInfo';
+import { PlanInfo } from './plan/PlanInfo';
 import { SelectExperience } from './SelectExperience';
 import { Summary } from '../summary/Summary';
 

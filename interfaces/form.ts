@@ -19,6 +19,7 @@ export interface IFormOptional{
 export interface IPlanOptions {
     name: PlanTypes;
     price: number;
+    src?: string;
 }
 
 export type PlanTypes = "arcade" | "advanced" | "pro";

@@ -2,9 +2,10 @@ import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
 
 import { FormContext } from '@/context/FormContext';
-import { PlanTypes } from '../../interfaces/form';
+import { PlanTypes } from '../../../interfaces/form';
 import { planMonthDB, planYearlyDB } from '@/db/info';
 import { returnArray } from '@/utils/arrays';
+import { Plan } from './Plan';
 
 export const PlanInfo = () => {
 
@@ -49,7 +50,7 @@ export const PlanInfo = () => {
         ])
     }
 
-    const handleClickNextForm = ( number: number ) =>{
+    const handleClickNextForm = ( number: number ) => {
         //Comprobar que por lo menos se haya elegido una opcion
         if ( Object.values( plan ).some( s => s ) ) {
 
@@ -68,53 +69,29 @@ export const PlanInfo = () => {
             <p className='col-cool-gray'>You have the option of monthly or yearly biling</p>
 
             <div className='d-flex mt-5 column-gap-3'>
-                <div 
-                    className={`${ plan.some( p => p === "arcade" ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
-                    onClick={ () => handleSelectPlan("arcade") }
-                >
-                    <Image 
-                        src="/assets/icon-arcade.svg"
-                        width={ 40 }
-                        height={ 40 }
-                        alt="Icono arcade"
-                    />
-                    <div className='mt-5'>
-                        <p className='fw-bold col-marine-blue'>Arcade</p>
-                        <p className='col-cool-gray'>$9/mo</p>
-                    </div>
-                </div>
-
-                <div 
-                    className={`${ plan.some( p => p === "advanced" ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
-                    onClick={ () => handleSelectPlan("advanced") }
-                >
-                    <Image 
-                        src="/assets/icon-advanced.svg"
-                        width={ 40 }
-                        height={ 40 }
-                        alt="Icono advanced"
-                    />
-                    <div className='mt-5'>
-                        <p className='fw-bold col-marine-blue'>Advanced</p>
-                        <p className='col-cool-gray'>$12/mo</p>
-                    </div>
-                </div>
-
-                <div 
-                    className={`${ plan.some( p => p === "pro" ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
-                    onClick={ () => handleSelectPlan("pro") }
-                >
-                    <Image
-                        src="/assets/icon-pro.svg"
-                        width={ 40 }
-                        height={ 40 }
-                        alt="Icono Pro"
-                    />
-                    <div className='mt-5'>
-                        <p className='fw-bold col-marine-blue'>Pro</p>
-                        <p className='col-cool-gray'>$9/mo</p>
-                    </div>
-                </div>
+                {
+                    monthly &&
+                    planMonthDB.map( p => (
+                        <Plan 
+                            key={ p.name} 
+                            handleSelectPlan={ handleSelectPlan }   
+                            plan={ plan }
+                            { ...p }
+                        />
+                    ))
+                }
+                {
+                    !monthly &&
+                    planYearlyDB.map( p => (
+                        <Plan 
+                            key={ p.name} 
+                            handleSelectPlan={ handleSelectPlan }   
+                            plan={ plan }
+                            { ...p }
+                        />
+                    ))
+                }
+                
             </div>
 
             <div className='d-flex mt-5 justify-content-center column-gap-3'>
