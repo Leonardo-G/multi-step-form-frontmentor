@@ -1,4 +1,4 @@
-import { IPlanOptions } from "@/interfaces/form"
+import { IAddOnsOptions, IPlanOptions } from "@/interfaces/form"
 
 export const planMonthDB: IPlanOptions[] = [
     {
@@ -36,7 +36,7 @@ export const planYearlyDB: IPlanOptions[] = [
     }
 ]
 
-export const addOnsMonthDB = [
+export const addOnsMonthDB: IAddOnsOptions[] = [
     {
         name: "Online service",
         price: 1
@@ -51,7 +51,7 @@ export const addOnsMonthDB = [
     }
 ]
 
-export const addOnsYearlyDB = [
+export const addOnsYearlyDB: IAddOnsOptions[] = [
     {
         name: "Online service",
         price: 10

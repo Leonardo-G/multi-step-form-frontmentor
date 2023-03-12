@@ -1,17 +1,19 @@
 import React, { FC } from 'react'
 import Image from 'next/image'
-import { PlanTypes } from '@/interfaces/form';
+
+import { PlanTypes, TimePayTypes } from '@/interfaces/form';
 
 interface Props {
     src?: string;
     name: "arcade" | "advanced" | "pro";
     price: number;
+    timePay: TimePayTypes;
 
     plan: PlanTypes[];
-    handleSelectPlan: ( planName: "arcade" | "advanced" | "pro" ) => void
+    handleSelectPlan: ( planName: "arcade" | "advanced" | "pro" ) => void;
 }
 
-export const Plan: FC<Props> = ({ src, handleSelectPlan, plan, name, price }) => {
+export const Plan: FC<Props> = ({ src, handleSelectPlan, plan, name, price, timePay }) => {
     return (
         <div 
             className={`${ plan.some( p => p === name ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
@@ -25,7 +27,13 @@ export const Plan: FC<Props> = ({ src, handleSelectPlan, plan, name, price }) =>
             />
             <div className='mt-5'>
                 <p className='fw-bold col-marine-blue'>{ name }</p>
-                <p className='col-cool-gray'>${ price }/mo</p>
+                <p className='col-cool-gray'>
+                    ${ price }/{ timePay === "monthly" ? "mo" : "yr" }
+                </p>
+                {
+                    timePay === "yearly" &&
+                    <p className='col-marine-blue fw-medium mt-1'>2 month free</p>
+                }
             </div>
         </div>
     )

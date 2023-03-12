@@ -4,7 +4,7 @@ export interface IForm{
     phone: string;
     plan: IPlanOptions[];
     timePay: TimePayTypes;
-    addOns: AddOnsTypes[];
+    addOns: IAddOnsOptions[];
 }
 
 export interface IFormOptional{
@@ -13,7 +13,7 @@ export interface IFormOptional{
     phone?: string;
     plan?: IPlanOptions[];
     timePay?: TimePayTypes;
-    addOns?: AddOnsTypes[];
+    addOns?: IAddOnsOptions[];
 }
 
 export interface IPlanOptions {
@@ -22,6 +22,11 @@ export interface IPlanOptions {
     src?: string;
 }
 
+export interface IAddOnsOptions {
+    name: AddOnsTypes;
+    price: number;
+}
+
 export type PlanTypes = "arcade" | "advanced" | "pro";
 export type TimePayTypes = "monthly" | "yearly";
-export type AddOnsTypes = "online-service" | "larger-storage" | "custom-profile";
+export type AddOnsTypes = "Online service" | "Larger storage" | "Customizable profile";

@@ -1,28 +1,30 @@
 import React, { useContext, useEffect, useState } from 'react'
-import Image from 'next/image'
 
 import { FormContext } from '@/context/FormContext';
-import { PlanTypes } from '../../../interfaces/form';
 import { planMonthDB, planYearlyDB } from '@/db/info';
 import { returnArray } from '@/utils/arrays';
+
+import { PlanTypes, IPlanOptions } from '../../../interfaces/form';
 import { Plan } from './Plan';
 
 export const PlanInfo = () => {
 
     const { changeNumberForm, handleFillForm, form } = useContext( FormContext );
-    const [monthly, setMonthly] = useState( form.timePay === "monthly" ? true : false);
+    const [monthly, setMonthly] = useState<boolean>(false);
     const [plan, setPlan] = useState<PlanTypes[]>( [] )
 
     useEffect(() => {
         if ( monthly && plan.length > 0 ) {
             handleFillForm({
-                plan: returnArray( plan, planMonthDB )
+                plan: returnArray( plan, planMonthDB ) as IPlanOptions[],
+                timePay: "monthly"
             }) 
         }
 
         if ( !monthly && plan.length > 0 ) {
             handleFillForm({
-                plan: returnArray( plan, planYearlyDB )
+                plan: returnArray( plan, planYearlyDB ) as IPlanOptions[],
+                timePay: "yearly"
             })
             console.log("EJECUTANDO")
         }
@@ -32,6 +34,7 @@ export const PlanInfo = () => {
     
     useEffect(() => {
         setPlan( form.plan.map( f => f.name ) )
+        setMonthly( form.timePay === "monthly" ? true : false );
     }, [])
 
     const handleSelectPlan = ( planName: "arcade" | "advanced" | "pro" ) => {
@@ -44,20 +47,13 @@ export const PlanInfo = () => {
         }
 
         //En caso de que no este, lo agregamos.
-        setPlan([
-            ...plan,
-            planName
-        ])
+        setPlan([ planName ])
     }
 
     const handleClickNextForm = ( number: number ) => {
         //Comprobar que por lo menos se haya elegido una opcion
         if ( Object.values( plan ).some( s => s ) ) {
 
-            handleFillForm({
-                timePay: monthly ? "monthly" : "yearly",
-            })
-            
             //En caso de pasar la validación cambiamos la ventana del formulario
             changeNumberForm( number )
         }
@@ -76,6 +72,7 @@ export const PlanInfo = () => {
                             key={ p.name} 
                             handleSelectPlan={ handleSelectPlan }   
                             plan={ plan }
+                            timePay="monthly"
                             { ...p }
                         />
                     ))
@@ -87,6 +84,7 @@ export const PlanInfo = () => {
                             key={ p.name} 
                             handleSelectPlan={ handleSelectPlan }   
                             plan={ plan }
+                            timePay="yearly"
                             { ...p }
                         />
                     ))
