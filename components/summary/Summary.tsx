@@ -4,7 +4,7 @@ import { FormContext } from '@/context/FormContext';
 
 export const Summary = () => {
 
-    const { changeNumberForm } = useContext( FormContext );
+    const { changeNumberForm, form } = useContext( FormContext );
 
     return (
         <>
@@ -14,7 +14,9 @@ export const Summary = () => {
             <div className='mt-5'>
                 <div className='d-flex justify-content-between align-items-center'>
                     <div>
-                        <p className='fw-bold col-marine-blue'>Arcade (Monthly)</p>
+                        <p className='fw-bold col-marine-blue text-capitalize'>
+                            { form.plan } ({ form.timePay })
+                        </p>
                         <p 
                             className='col-cool-gray text-decoration-underline pointer'
                             onClick={ () => changeNumberForm( -2 ) }    

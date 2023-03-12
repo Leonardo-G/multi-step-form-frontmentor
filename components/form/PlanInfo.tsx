@@ -1,19 +1,43 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
+
 import { FormContext } from '@/context/FormContext';
-import { PlanTypes } from '@/interfaces/form';
+import { PlanTypes } from '../../interfaces/form';
+import { planMonthDB, planYearlyDB } from '@/db/info';
+import { returnArray } from '@/utils/arrays';
 
 export const PlanInfo = () => {
 
     const { changeNumberForm, handleFillForm, form } = useContext( FormContext );
     const [monthly, setMonthly] = useState( form.timePay === "monthly" ? true : false);
-    const [plan, setPlan] = useState<PlanTypes[]>( form.plan )
+    const [plan, setPlan] = useState<PlanTypes[]>( [] )
 
-    const handleSelectPlan = ( planOption: "arcade" | "advanced" | "pro" ) => {
+    useEffect(() => {
+        if ( monthly && plan.length > 0 ) {
+            handleFillForm({
+                plan: returnArray( plan, planMonthDB )
+            }) 
+        }
+
+        if ( !monthly && plan.length > 0 ) {
+            handleFillForm({
+                plan: returnArray( plan, planYearlyDB )
+            })
+            console.log("EJECUTANDO")
+        }
+
+        //eslint-disable-next-line
+    }, [ monthly, plan ])
+    
+    useEffect(() => {
+        setPlan( form.plan.map( f => f.name ) )
+    }, [])
+
+    const handleSelectPlan = ( planName: "arcade" | "advanced" | "pro" ) => {
 
         //Si la opción ya existe, lo quitamos del arreglo
-        if ( plan.includes( planOption ) ) {
-            setPlan( plan.filter( p => p !== planOption ) );
+        if ( plan.some( p => p === planName ) ) {
+            setPlan( plan.filter( p => p !== planName ) );
 
             return;
         }
@@ -21,7 +45,7 @@ export const PlanInfo = () => {
         //En caso de que no este, lo agregamos.
         setPlan([
             ...plan,
-            planOption
+            planName
         ])
     }
 
@@ -31,7 +55,6 @@ export const PlanInfo = () => {
 
             handleFillForm({
                 timePay: monthly ? "monthly" : "yearly",
-                plan
             })
             
             //En caso de pasar la validación cambiamos la ventana del formulario

@@ -2,7 +2,7 @@ export interface IForm{
     name: string;
     email: string;
     phone: string;
-    plan: PlanTypes[];
+    plan: IPlanOptions[];
     timePay: TimePayTypes;
     addOns: AddOnsTypes[];
 }
@@ -11,9 +11,14 @@ export interface IFormOptional{
     name ?: string;
     email?: string;
     phone?: string;
-    plan?: PlanTypes[];
+    plan?: IPlanOptions[];
     timePay?: TimePayTypes;
     addOns?: AddOnsTypes[];
+}
+
+export interface IPlanOptions {
+    name: PlanTypes;
+    price: number;
 }
 
 export type PlanTypes = "arcade" | "advanced" | "pro";
