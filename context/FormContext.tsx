@@ -7,6 +7,7 @@ export interface ContextProps {
     getInfo: boolean;
     handleFillForm: ( formUser: IFormOptional ) => void;
     changeNumberForm: (number: number) => void;
+    handleConfirm: () => boolean;
 };
 
 export const FormContext = createContext({} as ContextProps);

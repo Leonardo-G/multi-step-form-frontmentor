@@ -64,7 +64,7 @@ export const PlanInfo = () => {
             <h2 className='fw-bold col-marine-blue'>Select your plan</h2>
             <p className='col-cool-gray'>You have the option of monthly or yearly biling</p>
 
-            <div className='d-flex mt-5 column-gap-3'>
+            <div className='d-flex mt-5 column-gap-3 flex-column flex-md-row row-gap-3'>
                 {
                     monthly &&
                     planMonthDB.map( p => (

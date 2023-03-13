@@ -1,0 +1,24 @@
+.form-container{
+
+}
+
+@media (max-width: 769px) {
+    .form-container{
+        position: absolute;
+        left: 50%;
+        background: #fff;
+        width: 90%;
+        margin: 0 auto;
+        transform: translate(-56%, -12%);
+        border-radius: 20px;
+        min-height: 650px;
+        padding-top:  30px;
+        padding-bottom:  30px;
+    }
+}
+
+@media (max-width: 380px) {
+    .form-container{
+        min-height: 800px;
+    }
+}

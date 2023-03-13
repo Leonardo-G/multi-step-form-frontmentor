@@ -1,5 +1,5 @@
-import { AddOnsTypes, TimePayTypes } from '@/interfaces/form';
 import React, { ChangeEvent, FC } from 'react'
+import { AddOnsTypes, TimePayTypes } from '@/interfaces/form';
 
 interface Props {
     name: AddOnsTypes;

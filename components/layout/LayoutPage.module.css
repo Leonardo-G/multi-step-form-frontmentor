@@ -8,3 +8,14 @@
     border-radius: 15px;
     width: min(95%, 870px);
 }
+
+@media ( max-width: 768px ) {
+    .layout{
+        top: 0;
+        left: 0;
+        transform: translate(0);
+        padding: 0;
+        width: 100%;
+        background-color: transparent;
+    }
+}

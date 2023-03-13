@@ -16,7 +16,7 @@ interface Props {
 export const Plan: FC<Props> = ({ src, handleSelectPlan, plan, name, price, timePay }) => {
     return (
         <div 
-            className={`${ plan.some( p => p === name ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100`}
+            className={`${ plan.some( p => p === name ) ? "border-purplish " : "border-marine" } pointer p-3 rounded border-marine w-100 d-flex d-md-block align-items-center column-gap-3`}
             onClick={ () => handleSelectPlan( name ) }
         >
             <Image
@@ -25,7 +25,7 @@ export const Plan: FC<Props> = ({ src, handleSelectPlan, plan, name, price, time
                 height={ 40 }
                 alt="Icono arcade"
             />
-            <div className='mt-5'>
+            <div className='mt-md-5 mt-0'>
                 <p className='fw-bold col-marine-blue'>{ name }</p>
                 <p className='col-cool-gray'>
                     ${ price }/{ timePay === "monthly" ? "mo" : "yr" }

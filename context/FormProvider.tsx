@@ -52,11 +52,26 @@ export const FormProvider: FC<Props> = ({ children }) => {
         setNumberForm( numberWindowForm );
     }
 
+    const handleConfirm = (): boolean => {
+        localStorage.removeItem("formUser"),
+        setForm({
+            name: "",
+            email: "",
+            phone: "",
+            plan: [],
+            timePay: "monthly",
+            addOns: []
+        })
+
+        return true
+    }
+
     return (
         <FormContext.Provider value={{
             getInfo,
             numberForm,
             form,
+            handleConfirm,
 
             // METHODS
             handleFillForm,
